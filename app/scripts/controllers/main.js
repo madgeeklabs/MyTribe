@@ -5,8 +5,11 @@ angular.module('MyTribeApp')
         // lista los pois
         $scope.pois = Pois;
         
+        $scope.joanatan = "genip";
+        
         $scope.postToNode = function(){
             console.log('almost posting to niode!');
+            $scope.joanatan = "geniadsdasdp";
            Paypal.save({lala:'caca'}); 
         };
 

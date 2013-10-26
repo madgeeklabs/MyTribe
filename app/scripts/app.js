@@ -9,7 +9,7 @@ var myTribeApp = angular.module('MyTribeApp', [
   'google-maps'
 ]).
   factory('Beats', function(angularFireCollection) {
-    return angularFireCollection(new Firebase('https://elchudi.firebaseio.com/'));
+    return angularFireCollection(new Firebase('https://elchudi-beats.firebaseio.com/'));
   })
     .factory('Paypal', ['$resource', function($resource){
         var urlApi = 'http://localhost:5000/';
@@ -17,7 +17,7 @@ var myTribeApp = angular.module('MyTribeApp', [
         return resource;
     }]).
   factory('Pois', function(angularFireCollection) {
-    return angularFireCollection(new Firebase('https://mitribu-pois.firebaseio.com/'));
+    return angularFireCollection(new Firebase('https://elchudi-pois.firebaseio.com/'));
   }).
   factory('Tribes', function(angularFireCollection) {
     return angularFireCollection(new Firebase('https://mitribu-tribes.firebaseio.com/'));
