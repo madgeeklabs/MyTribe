@@ -39,7 +39,7 @@
        ga('send', 'pageview');
     </script>
 
-
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
     <script src="//code.angularjs.org/1.2.0-rc.3/angular.js"></script>
     <script src="//code.angularjs.org/1.2.0-rc.3/angular-route.js"></script>
     <script src="//code.angularjs.org/1.2.0-rc.3/angular-cookies.js"></script>
@@ -51,9 +51,11 @@
         <!-- build:js scripts/modules.js -->
         <script src='//cdn.firebase.com/v0/firebase.js'></script>
         <script src="bower_components/angular-fire/angularfire.min.js"></script>
+        <script src="bower_components/lodash/dist/lodash.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="libs/angular-google-maps.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <!-- endbuild -->
