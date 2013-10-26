@@ -4,6 +4,7 @@ angular.module('MyTribeApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
+  'ngRoute',
   'firebase'
 ])
   .config(function ($routeProvider) {
