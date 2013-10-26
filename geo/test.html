@@ -1,0 +1,178 @@
+<html>
+<head>
+   <script src="mitribu_geo.js"></script>
+   <script src="geo.js" type="text/javascript" charset="utf-8"></script>
+   <script src="lodash.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+
+function init(){
+	var smokevar= "Smoke test OK!";
+	var testsOk= true;
+	var errorMessage = "";
+	var pos1; 
+	var printedPos; 
+	var posArray;
+	var temp;
+
+	// Smoke Test
+	document.getElementById("smoketest").innerHTML=smokevar;
+
+	// print pos test
+	pos1={coords:{latitude:41.40791,longitude:2.13016},timestamp:1382763600},
+	printedPos = posToString(pos1);
+
+	document.getElementById("printPosTest").innerHTML="Print Test: "+ printedPos;
+
+	if(printedPos !="41.40791, 2.13016")
+	{
+		testsOk = false;
+		errorMessage = "PrintPosTest error: " + printedPos;
+	}
+	// print array test
+	posArray =[
+	{coords:{latitude:41.40793,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.40675,longitude:2.13367},timestamp:1382763600},
+	]; 
+	printedPos = posArrayToString(posArray);
+				
+	document.getElementById("inArray").innerHTML="In Array:<br/> "+ printedPos;
+
+	if(printedPos !="41.40793, 2.12839<br/>41.40675, 2.13367")
+	{
+		testsOk = false;
+		errorMessage = "PrintArrayTest error: " + printedPos;
+	}
+	// distance test
+	//printedPos = calculateDistance(posArray[0].coords.latitude,posArray[0].coords.longitude,posArray[1].coords.latitude,posArray[1].coords.longitude); 
+	printedPos = distance(posArray[0],posArray[1]); 
+	
+	if (printedPos != "459.48001015117285"){
+		testsOk = false;
+		errorMessage = "Distance error: " + printedPos;
+	}
+
+	// Clustering test
+	// If two positions closer than 100m, create poi 
+	posArray =[
+	{coords:{latitude:41.40675,longitude:2.13367},timestamp:1382763600},
+	{coords:{latitude:41.40793,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.40793,longitude:2.12839},timestamp:1382763600},
+	]; 
+
+	printedPos = posArrayToString(performClustering(posArray)); 
+
+	if (printedPos != "41.40793, 2.12839"){
+		testsOk = false;
+		errorMessage = "Clustering error test 1: " + printedPos;
+	}
+	document.getElementById("inArray").innerHTML="In Array:<br/> "+ posArrayToString(posArray);
+	document.getElementById("outArray").innerHTML="out Array: <br/>"+ printedPos;
+
+	// lodash test
+	// Group positions into 30 seconds groups
+	posArray =[
+	{coords:{latitude:41.40671,longitude:2.13367},timestamp:1382700001},
+	{coords:{latitude:41.40792,longitude:2.12839},timestamp:1382700500},
+	{coords:{latitude:41.40793,longitude:2.12839},timestamp:1382720000},
+	{coords:{latitude:41.40794,longitude:2.12839},timestamp:1382726000}, // Group 0
+	{coords:{latitude:41.40795,longitude:2.12839},timestamp:1382730001},
+	{coords:{latitude:41.40796,longitude:2.12839},timestamp:1382744000},
+	{coords:{latitude:41.40797,longitude:2.12839},timestamp:1382750900}, // Group 1
+	{coords:{latitude:41.40798,longitude:2.12839},timestamp:1382795000}, // Group 2
+	]; 
+
+	printedPos = groupByTime(posArray,30000); 
+
+	if (printedPos[2][0].coords.latitude != "41.40798"){
+		testsOk = false;
+		errorMessage = "group by time error" ;
+	}
+	
+	for (var propertyName in printedPos)	
+	{	
+		temp =  temp + "<br/><br/>"+posArrayToString(printedPos[propertyName]);
+	}
+	document.getElementById("tempData").innerHTML="time grouping: <br/>"+ temp;
+
+
+	// time clustering test
+	// Group positions into 30 seconds groups
+	posArray =[
+	[
+	{coords:{latitude:41.40674,longitude:2.13367},timestamp:1382763600},
+	{coords:{latitude:41.40675,longitude:2.13367},timestamp:1382763600},
+	{coords:{latitude:41.40676,longitude:2.13367},timestamp:1382763600},
+	{coords:{latitude:41.40792,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.40793,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.40794,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.41790,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.42790,longitude:2.12839},timestamp:1382763600}
+	],
+
+	[
+	{coords:{latitude:41.40674,longitude:2.13367},timestamp:1382763600},
+	{coords:{latitude:41.40675,longitude:2.13367},timestamp:1382763600},
+	{coords:{latitude:41.40676,longitude:2.13367},timestamp:1382763600},
+	{coords:{latitude:41.40792,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.40793,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.40794,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.41790,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.42790,longitude:2.12839},timestamp:1382763600}
+	],
+	[
+	{coords:{latitude:41.40674,longitude:2.13367},timestamp:1382763600},
+	{coords:{latitude:41.40675,longitude:2.13367},timestamp:1382763600},
+	{coords:{latitude:41.40676,longitude:2.13367},timestamp:1382763600},
+	{coords:{latitude:41.40792,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.40793,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.40794,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.41790,longitude:2.12839},timestamp:1382763600},
+	{coords:{latitude:41.42790,longitude:2.12839},timestamp:1382763600}
+	]
+	]; 
+
+	printedPos = performTimeClustering(posArray); 
+
+	temp = posArrayToString(printedPos);
+
+	if (temp != "41.40676, 2.13367<br/>41.40794, 2.12839"){
+		testsOk = false;
+		errorMessage = "time clustering error" ;
+	}
+	
+	document.getElementById("tempData").innerHTML="time grouping: <br/>"+ temp;
+
+	// Print test results
+	if (!testsOk)	
+	{
+		document.getElementById("testWatchdog").innerHTML="TESTS FAIL!: "+errorMessage;
+		document.getElementById("testWatchdog").style.backgroundColor="red";
+	}
+	else {
+		document.getElementById("testWatchdog").innerHTML="TESTS PASS";
+		document.getElementById("testWatchdog").style.backgroundColor="#00f300";
+	}
+}
+
+</script>
+</head>
+
+<body onload="init() ">
+   <div id="title">Test Page</div>
+<br/>
+   <div id="smoketest">Smoke test fail! </div>
+<br/>
+   <div id="testWatchdog">test framework fail! </div>
+<br/>
+   <div id="printPosTest">Print Position test fail!</div>
+<br/>
+   <div id="inArray">In Array</div>
+<br/>
+   <div id="outArray">Out Array</div>
+<br/>
+   <div id="tempData">Temporal Data</div>
+<br/>
+
+</body>
+</html>
