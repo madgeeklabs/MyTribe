@@ -1,0 +1,26 @@
+Obtained from  W3 Geolocation API Specification, and augmented with some fields. 
+
+provided for javascript by geo-location-javascript=  https://code.google.com/p/geo-location-javascript/downloads/list
+
+
+http://dev.w3.org/geo/api/spec-source.html#api_description
+
+JSON FORMATS for position:
+
+  interface Position {
+    readonly attribute Coordinates coords;
+    readonly attribute DOMTimeStamp timestamp; // DOMTimeStamp == Date == long
+    readonly attribute int id;                 // Our own field, for user id.
+  };
+
+
+ interface Coordinates {
+    readonly attribute double latitude;
+    readonly attribute double longitude;
+    readonly attribute double? altitude;
+    readonly attribute double accuracy;
+    readonly attribute double? altitudeAccuracy;
+    readonly attribute double? heading;
+    readonly attribute double? speed;
+  };
+
