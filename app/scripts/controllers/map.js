@@ -35,7 +35,7 @@ angular.module('MyTribeApp')
             dragging: false,
             bounds: {},
             dynamicMarkers: [],
-            pois:[],
+            dynamicPois: [],
             doUgly: true, //great name :)
             events: {
                 click: function (mapModel, eventName, originalEventArgs) {
@@ -46,9 +46,12 @@ angular.module('MyTribeApp')
 			////////////////////////////////
 			// MAPA 1 (clicks)
 		    var pois = performClustering($scope.beats);
-			console.log(pois[0]);
-
-			Pois.add(pois[0]);
+                    console.log('pot entontrado');
+                    console.log(pois[0]);
+                    var p = pois[0];
+                    Pois.add({ coords: p.coords, showWindow: false }, function(){
+                      console.log('pois adder');
+                      } );
 
                     var e = originalEventArgs[0];
                     var dynamicMarkers = [];
@@ -142,5 +145,31 @@ angular.module('MyTribeApp')
 
 
     $scope.onMarkerClicked = onMarkerClicked;
+    
+    $timeout(function(){
+        console.log('hheeeeehooo');
+        var dynamicPois = [];
+          //$scope.map.infoWindow.show = true;
+        _.each($scope.pois, function(poi){
+                console.log('poi');
+                console.log(poi);
+              if(poi && poi.coords){
+                dynamicPois.push({ latitude: poi.coords.latitude, longitude: poi.coords.longitude, showWindow: false });
+                }
+          })   ;
+         _.each(dynamicPois,function(marker){
+              marker.closeClick = function(){
+                  marker.showWindow = false;
+                  $scope.$apply();
+              };
+              marker.onClicked = function(){
+                  onMarkerClicked(marker);
+              };
+          });
+          //debugger;
+          $scope.map.dynamicPois = dynamicPois;
+            console.log(dynamicPois.length);
+          $scope.$apply();
+        }, 2000);
 
 });

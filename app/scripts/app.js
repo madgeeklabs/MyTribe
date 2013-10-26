@@ -12,7 +12,7 @@ var myTribeApp = angular.module('MyTribeApp', [
     return angularFireCollection(new Firebase('https://elchudi-beats.firebaseio.com/'));
   }).
   factory('Pois', function(angularFireCollection) {
-    return angularFireCollection(new Firebase('https://mitribu-pois.firebaseio.com/'));
+    return angularFireCollection(new Firebase('https://elchudi-pois.firebaseio.com/'));
   }).
   factory('Tribes', function(angularFireCollection) {
     return angularFireCollection(new Firebase('https://mitribu-tribes.firebaseio.com/'));
