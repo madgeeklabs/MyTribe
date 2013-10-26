@@ -45,7 +45,7 @@ function performClustering(inArray){
 	var result = [];
 	var counter = 0;
 	var found;
-	// calculate if somebody close to first element
+
 	for (var j=0; j<inArray.length; j++){
 	for(var i=0; i<inArray.length; i++){
 		if (i==j)
@@ -93,6 +93,10 @@ function groupByTime(posArray, period) {
 // Pass array of arrays of beats, grouped by time, return current centroids
 function performTimeClustering(posArray)
 {
-	return posArray[0];
+	var mergedArray = [];
+	for (props in posArray){
+		mergedArray = mergedArray.concat(performClustering(posArray[props]));
+	}
+	return performClustering(mergedArray);
 }
 
