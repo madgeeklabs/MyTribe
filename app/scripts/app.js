@@ -14,6 +14,18 @@ var myTribeApp = angular.module('MyTribeApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/user/:userId', {
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl'
+      })
+      .when('/tribe/:tribeId', {
+        templateUrl: 'views/tribe.html',
+        controller: 'TribeCtrl'
+      })
+      .when('/poi/:poiId', {
+        templateUrl: 'views/poi.html',
+        controller: 'PoiCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -28,7 +40,7 @@ myTribeApp.controller('MapController', function  ($scope, $timeout, $log) {
         marker.showWindow = true;
         window.alert("Marker: lat: " + marker.latitude +", lon: " + marker.longitude + " clicked!!")
     };
-    
+
     var createRandomMarker = function(bounds) {
       var lat_min = bounds.southwest.latitude,
           lat_range = bounds.northeast.latitude - lat_min,
@@ -48,7 +60,7 @@ myTribeApp.controller('MapController', function  ($scope, $timeout, $log) {
         }
         scope.map.randomMarkers = markers;
     };
-    
+
 
     angular.extend($scope, {
         map: {
@@ -256,7 +268,7 @@ myTribeApp.controller('MapController', function  ($scope, $timeout, $log) {
     $scope.map.clusterOptionsText = JSON.stringify($scope.map.clusterOptions);
     $scope.$watch('map.clusterOptionsText', function (newValue, oldValue) {
         if(newValue !== oldValue)
-            $scope.map.clusterOptions = angular.fromJson($scope.map.clusterOptionsText);    
+            $scope.map.clusterOptions = angular.fromJson($scope.map.clusterOptionsText);
     });
 
      $scope.$watch('map.doUgly', function (newValue, oldValue) {
