@@ -43,6 +43,13 @@ angular.module('MyTribeApp')
                     $log.log("user defined event: " + eventName, mapModel, originalEventArgs);
                     var now = new Date();
 
+			////////////////////////////////
+			// MAPA 1 (clicks)
+		    var pois = performClustering($scope.beats);
+			console.log(pois[0]);
+
+			Pois.add(pois[0]);
+
                     var e = originalEventArgs[0];
                     var dynamicMarkers = [];
                     var beat = {coords:
@@ -52,10 +59,6 @@ angular.module('MyTribeApp')
                         console.log('beat adder');
                         //$scope.map.infoWindow.show = true;
                         _.each($scope.beats, function(beat){
-                            console.log(beat);
-                            //console.log(beat);
-                            //console.log(beat.coords.latitude);
-                            //console.log(beat.coords.longitude);
                             if(beat && beat.coords)
                                 dynamicMarkers.push({ latitude: beat.coords.latitude, longitude: beat.coords.longitude, showWindow: false });
                         })   ;
