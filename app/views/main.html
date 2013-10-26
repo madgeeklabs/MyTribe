@@ -1,9 +1,10 @@
 <div class="hero-unit">
-  <h1>'Allo, 'Allo!</h1>
-  <p>You now have</p>
-  <ul>
-      <li ng-repeat="thing in awesomeThings">{{thing}}</li>
-  </ul>
-  <p>installed.</p>
-  <h3>Enjoy coding! - Yeoman</h3>
+    <div id="messagesDiv">
+        <div ng-repeat="msg in messages"><em>{{msg.from}}</em>: {{msg.body}}</div>
+    </div>
+    <form ng-submit="addMessage($event)">
+        <input type="text" ng-model="name" placeholder="Name">
+        <input type="text" ng-model="msg" placeholder="Message...">
+        <button type="submit">Submit</button>
+    </form>
 </div>
