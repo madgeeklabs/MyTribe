@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('MyTribeApp')
-  .controller('TribeCtrl', function ($scope, angularFire) {
+  .controller('TribeCtrl', function ($scope) {
 
   });

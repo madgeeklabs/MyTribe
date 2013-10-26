@@ -7,8 +7,17 @@ var myTribeApp = angular.module('MyTribeApp', [
   'ngRoute',
   'firebase',
   'google-maps'
-])
-  .config(function ($routeProvider) {
+]).
+  factory('Pois', function(angularFireCollection) {
+    return angularFireCollection(new Firebase('https://mitribu-pois.firebaseio.com/'));
+  }).
+  factory('Tribes', function(angularFireCollection) {
+    return angularFireCollection(new Firebase('https://mitribu-tribes.firebaseio.com/'));
+  }).
+  factory('Users', function(angularFireCollection) {
+    return angularFireCollection(new Firebase('https://mitribu-users.firebaseio.com/'));
+  }).
+  config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
