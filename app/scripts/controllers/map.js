@@ -49,9 +49,13 @@ angular.module('MyTribeApp')
                     console.log('pot entontrado');
                     console.log(pois[0]);
                     var p = pois[0];
+
+			_.each(pois,function(p){
+
                     Pois.add({ coords: p.coords, showWindow: false }, function(){
                       console.log('pois adder');
                       } );
+					});
 
                     var e = originalEventArgs[0];
                     var dynamicMarkers = [];
