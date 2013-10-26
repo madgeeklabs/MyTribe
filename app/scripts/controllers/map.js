@@ -2,6 +2,7 @@
 
 angular.module('MyTribeApp') 
 .controller('MapController', function  ($scope, $timeout, $log, angularFire, Beats, Pois) {
+    _ = window._;
     $scope.beats = Beats;
     $scope.pois = Pois;
     $scope.info = {dynamicMarkers:[]};
@@ -12,7 +13,7 @@ angular.module('MyTribeApp')
 
     var onMarkerClicked = function(marker){
         marker.showWindow = true;
-        window.alert("Marker: lat: " + marker.latitude +", lon: " + marker.longitude + " clicked!!")
+        window.alert("Marker: lat: " + marker.latitude +", lon: " + marker.longitude + " clicked!!");
     };
     
 
@@ -47,15 +48,16 @@ angular.module('MyTribeApp')
 			// MAPA 1 (clicks)
 		    var pois = performClustering($scope.beats);
                     console.log('pot entontrado');
-                    console.log(pois[0]);
+                    console.log(pois);
                     var p = pois[0];
-
-			_.each(pois,function(p){
-
-                    Pois.add({ coords: p.coords, showWindow: false }, function(){
-                      console.log('pois adder');
-                      } );
-					});
+                    _.each(pois,function(p){
+                        if(_.filter($scope.pois, function(obj){return obj.coords.latitude == p.coords.latitude}).length == 0 ){
+                            Pois.add({ coords: p.coords, showWindow: false }, function(){
+                              console.log('point added');
+                            });
+                    
+                        }
+                    });
 
                     var e = originalEventArgs[0];
                     var dynamicMarkers = [];
@@ -66,9 +68,10 @@ angular.module('MyTribeApp')
                         console.log('beat adder');
                         //$scope.map.infoWindow.show = true;
                         _.each($scope.beats, function(beat){
-                            if(beat && beat.coords)
+                            if(beat && beat.coords){
                                 dynamicMarkers.push({ latitude: beat.coords.latitude, longitude: beat.coords.longitude, showWindow: false });
-                        })   ;
+                            }
+                        });
                        _.each(dynamicMarkers,function(marker){
                             marker.closeClick = function(){
                                 marker.showWindow = false;
@@ -149,31 +152,36 @@ angular.module('MyTribeApp')
 
 
     $scope.onMarkerClicked = onMarkerClicked;
+
+    var poisShow = function(){
+        $timeout(function(){
+            console.log('hheeeeehooo');
+            var dynamicPois = [];
+              //$scope.map.infoWindow.show = true;
+            _.each($scope.pois, function(poi){
+                    console.log('poi');
+                    console.log(poi);
+                  if(poi && poi.coords){
+                    dynamicPois.push({ latitude: poi.coords.latitude, longitude: poi.coords.longitude, showWindow: false });
+                    }
+              })   ;
+             _.each(dynamicPois,function(marker){
+                  marker.closeClick = function(){
+                      marker.showWindow = false;
+                      $scope.$apply();
+                  };
+                  marker.onClicked = function(){
+                      onMarkerClicked(marker);
+                  };
+              });
+              //debugger;
+              $scope.map.dynamicPois = dynamicPois;
+                console.log(dynamicPois.length);
+              $scope.$apply();
+                poisShow();
+            }, 4000);
+    };
     
-    $timeout(function(){
-        console.log('hheeeeehooo');
-        var dynamicPois = [];
-          //$scope.map.infoWindow.show = true;
-        _.each($scope.pois, function(poi){
-                console.log('poi');
-                console.log(poi);
-              if(poi && poi.coords){
-                dynamicPois.push({ latitude: poi.coords.latitude, longitude: poi.coords.longitude, showWindow: false });
-                }
-          })   ;
-         _.each(dynamicPois,function(marker){
-              marker.closeClick = function(){
-                  marker.showWindow = false;
-                  $scope.$apply();
-              };
-              marker.onClicked = function(){
-                  onMarkerClicked(marker);
-              };
-          });
-          //debugger;
-          $scope.map.dynamicPois = dynamicPois;
-            console.log(dynamicPois.length);
-          $scope.$apply();
-        }, 2000);
+    poisShow();
 
 });
