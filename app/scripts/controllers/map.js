@@ -279,25 +279,15 @@ angular.module('MyTribeApp')
         // latitude: 30.0,
         // longitude: -100
         // };
+        var dynamicMarkers = [];
         $scope.map.infoWindow.show = true;
-        var dynamicMarkers = [
-                {
-                    latitude: 46,
-                    longitude: -79,
-                    showWindow: false
-                },
-                {
-                    latitude: 33,
-                    longitude: -79,
-                    showWindow: false
-                },
-                {
-                    icon: 'plane.png',
-                    latitude: 35,
-                    longitude: -127,
-                    showWindow: false
-                }
-        ];
+        _.each($scope.beats, function(beat){
+            console.log(beat);
+            console.log(beat);
+            console.log(beat.coords.latitude);
+            console.log(beat.coords.longitude);
+            dynamicMarkers.push({latitud:beat.coords.latitude, longitude:beat.coords.longitude});
+        })   ;
        _.each(dynamicMarkers,function(marker){
             marker.closeClick = function(){
                 marker.showWindow = false;

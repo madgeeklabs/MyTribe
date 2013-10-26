@@ -4,10 +4,6 @@
     </div>
 </div>
 <div ng-controller="MapController">
-    <div ng-repeat="beat in beats">
-        {{beat}}
-
-    </div>
     <div class="google-map affix span7"
          center="map.center"
          zoom="map.zoom"
@@ -36,15 +32,6 @@
         </markers>
 
 
-        <markers models="map.dynamicMarkers" coords="'self'" icon="'icon'" click="'onClicked'" fit='true'>
-            <windows show="'showWindow'" closeClick="'closeClick'">
-                <p>Dynamic Marker created via a delay!</p>
-
-                <p ng-non-bindable>This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!</p>
-
-                <p class="muted">My marker will stay open when the window is popped up!</p>
-            </windows>
-        </markers>
 
         <!-- prefedined markers -->
         <!-- rendering via ng-repear, HIGH OVERHEAD via DOM Manipulation -->
@@ -81,5 +68,22 @@
 
         <polyline ng-repeat="p in map.polylines" path="p.path" stroke="p.stroke" visible='p.visible'
                   geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable"></polyline>
+    </div>
+</div>
+<div ng-controller="MapController">
+    <div class="google-map affix span7"
+         center="map.center"
+         zoom="map.zoom"
+         draggable="true"
+         dragging="map.dragging"
+         bounds="map.bounds"
+         events="map.events"
+         options="map.options">
+
+        <markers models="map.dynamicMarkers" coords="'self'" icon="'icon'" click="'onClicked'" fit='true'>
+        </markers>
+    </div>
+    <div ng-repeat="beat in beats">
+        {{beat}}
     </div>
 </div>
