@@ -1,11 +1,9 @@
 'use strict';
 
 angular.module('MyTribeApp') 
-.controller('MapController', function  ($scope, $timeout, $log, angularFire) {
-    $scope.beats = [];
-    var ref = new Firebase("https://elchudi.firebaseio.com/beats");
-    angularFire(ref, $scope, "beats");
-
+.controller('MapController', function  ($scope, $timeout, $log, angularFire, Beats) {
+    $scope.beats = Beats;
+    //window.b = Beats
     // Enable the new Google Maps visuals until it gets enabled by default.
     // See http://googlegeodevelopers.blogspot.ca/2013/05/a-fresh-new-look-for-maps-api-for-all.html
     google.maps.visualRefresh = true;
@@ -112,7 +110,7 @@ angular.module('MyTribeApp')
                     var beat = {coords:
                                     {latitude:e.latLng.lat(), longitude:e.latLng.lng()},
                                     timestamp:now, user_id:555};
-                    $scope.beats.push(beat);
+                    Beats.add(beat);
 
                     if (!$scope.map.clickedMarker) {
                         $scope.map.clickedMarker = {

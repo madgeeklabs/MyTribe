@@ -8,6 +8,9 @@ var myTribeApp = angular.module('MyTribeApp', [
   'firebase',
   'google-maps'
 ]).
+  factory('Beats', function(angularFireCollection) {
+    return angularFireCollection(new Firebase('https://mitribu-beats.firebaseio.com/'));
+  }).
   factory('Pois', function(angularFireCollection) {
     return angularFireCollection(new Firebase('https://mitribu-pois.firebaseio.com/'));
   }).
