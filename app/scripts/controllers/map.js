@@ -3,6 +3,7 @@
 angular.module('MyTribeApp') 
 .controller('MapController', function  ($scope, $timeout, $log, angularFire, Beats) {
     $scope.beats = Beats;
+    $scope.info = {dynamicMarkers:[]};
     //window.b = Beats
     // Enable the new Google Maps visuals until it gets enabled by default.
     // See http://googlegeodevelopers.blogspot.ca/2013/05/a-fresh-new-look-for-maps-api-for-all.html
@@ -107,10 +108,33 @@ angular.module('MyTribeApp')
                     var now = new Date();
 
                     var e = originalEventArgs[0];
+                    $scope.info.dynamicMarkers = [];
                     var beat = {coords:
                                     {latitude:e.latLng.lat(), longitude:e.latLng.lng()},
                                     timestamp:now, user_id:555};
-                    Beats.add(beat);
+                    Beats.add(beat, function(){
+                        console.log('beat adder');
+                        $scope.map.infoWindow.show = true;
+                        _.each($scope.beats, function(beat){
+                            console.log(beat);
+                            //console.log(beat);
+                            //console.log(beat.coords.latitude);
+                            //console.log(beat.coords.longitude);
+                            if(beat && beat.coords)
+                            $scope.info.dynamicMarkers.push({latitud:beat.coords.latitude, longitude:beat.coords.longitude});
+                        })   ;
+                       _.each($scope.info.dynamicMarkers,function(marker){
+                            marker.closeClick = function(){
+                                marker.showWindow = false;
+                                $scope.$apply();
+                            };
+                            marker.onClicked = function(){
+                                onMarkerClicked(marker);
+                            };
+                        });
+                        //debugger;
+                        //$scope.map.dynamicMarkers = dynamicMarkers;
+                    });
 
                     if (!$scope.map.clickedMarker) {
                         $scope.map.clickedMarker = {
@@ -279,24 +303,5 @@ angular.module('MyTribeApp')
         // latitude: 30.0,
         // longitude: -100
         // };
-        var dynamicMarkers = [];
-        $scope.map.infoWindow.show = true;
-        _.each($scope.beats, function(beat){
-            console.log(beat);
-            console.log(beat);
-            console.log(beat.coords.latitude);
-            console.log(beat.coords.longitude);
-            dynamicMarkers.push({latitud:beat.coords.latitude, longitude:beat.coords.longitude});
-        })   ;
-       _.each(dynamicMarkers,function(marker){
-            marker.closeClick = function(){
-                marker.showWindow = false;
-                $scope.$apply();
-            };
-            marker.onClicked = function(){
-                onMarkerClicked(marker);
-            };
-        });
-        $scope.map.dynamicMarkers = dynamicMarkers;
     }, 2000);
 });

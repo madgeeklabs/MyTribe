@@ -1,3 +1,4 @@
+
 /*
 angular.module('MyTribeApp', ['ngResource' ])
     .factory('Message', ['$resource', function($resource){

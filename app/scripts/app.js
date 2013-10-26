@@ -9,8 +9,13 @@ var myTribeApp = angular.module('MyTribeApp', [
   'google-maps'
 ]).
   factory('Beats', function(angularFireCollection) {
-    return angularFireCollection(new Firebase('https://mitribu-beats.firebaseio.com/'));
-  }).
+    return angularFireCollection(new Firebase('https://elchudi.firebaseio.com/'));
+  })
+    .factory('Paypal', ['$resource', function($resource){
+        var urlApi = 'http://localhost:5000/';
+        var resource = $resource(urlApi, {}, { 'save': { method: 'POST',  params: { ll:'0,0' }  }});
+        return resource;
+    }]).
   factory('Pois', function(angularFireCollection) {
     return angularFireCollection(new Firebase('https://mitribu-pois.firebaseio.com/'));
   }).
