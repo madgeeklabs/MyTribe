@@ -208,15 +208,14 @@ angular.module('MyTribeApp')
         console.log(newVal);
     
     });
+    $scope.isHeatmapActive = false;
+    $scope.activeHeatmap = function(){
+        console.log('toggle active heatmap');
+       $scope.isHeatmapActive =  !$scope.isHeatmapActive;
+    };
 
-    $scope.showMap = function(){
-        console.log('show map');
-        var mapOptions = {
-          center: new google.maps.LatLng(34.397, 0.644),
-          zoom: 2,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        map = map || new google.maps.Map(document.getElementById("map-canvas-basic"), mapOptions);
+    var activateHeatmap = function(map){
+        console.log('activating heatmap');
         if(heatmap){
             heatmap.setMap(null);
         }
@@ -232,6 +231,26 @@ angular.module('MyTribeApp')
             data: pointArray
         });
         heatmap.setMap(map);
+    
+    };
+
+    $scope.showMap = function(){
+        console.log('show map');
+        console.log($scope.isHeatmapActive);
+        var mapOptions = {
+          center: new google.maps.LatLng(34.397, 0.644),
+          zoom: 2,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = map || new google.maps.Map(document.getElementById("map-canvas-basic"), mapOptions);
+
+        if($scope.isHeatmapActive){
+            activateHeatmap(map);
+        }else{
+            if(heatmap){
+                heatmap.setMap(null);
+            }
+        }
         
         _.each($scope.pois, function(poi){
             //console.log(poi);
@@ -264,7 +283,7 @@ angular.module('MyTribeApp')
     };
    
     $scope.showMap(); 
-   //showMap,1000);
+    //showMap,1000);
     //google.maps.event.addDomListener(window, 'load', $scope.showMap);
 
     //heatShow();    
