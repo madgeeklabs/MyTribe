@@ -22,9 +22,16 @@ var create_payment_json = {
         "payment_method": "paypal"
     },
     "redirect_urls": {
-        "return_url": "http:\/\/localhost\/test\/rest\/rest-api-sdk-php\/sample\/payments\/ExecutePayment.php?success=true",
-        "cancel_url": "http:\/\/localhost\/test\/rest\/rest-api-sdk-php\/sample\/payments\/ExecutePayment.php?success=false"
-    }
+        "return_url": "http:\/\/127.0.0.1:9000\/#\/",
+        "cancel_url": "http:\/\/127.0.0.1:9000\/#\/"
+    },
+    "transactions": [{
+        "amount": {
+            "total": "0",
+            "currency": "USD"
+        },
+        "description": "This is the payment transaction description."
+    }]
 };
 
 app.configure(function() {
@@ -34,30 +41,21 @@ app.configure(function() {
 app.use(express.bodyParser());
 
 app.post("/", function(request, response){
-    // console.dir(request.body);
     var currency = request.body.amount.currency,
-        total = request.body.amount.total;
+        total = request.body.amount.total,
+        description = request.body.description;
 
-    create_payment_json.transactions = [{
-        "amount": {
-            "currency": currency,
-            "total": total
-        },
-        "description": request.body.description
-    }];
+    create_payment_json.transactions[0].amount.total = total;
+    create_payment_json.transactions[0].amount.currency = currency;
+    create_payment_json.transactions[0].description = description;
 
-    paypal_api.payment.create(create_payment_json, config_opts, function (err, res) {
-        if (err) {
-            throw err;
-        }
-
-        if (res) {
-            console.log("Create Payment Response");
-            console.log(res);
+    paypal_api.payment.create(create_payment_json, config_opts, function (error, res) {
+        if(error){
+            throw error;
+        } else {
+            response.json({ 'redirect': res.links[1].href + '&useraction=commit' });
         }
     });
-
-    response.send(create_payment_json);
 });
 
 app.listen(3000, function(){

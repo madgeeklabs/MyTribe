@@ -7,10 +7,13 @@ angular.module('MyTribeApp')
         $scope.payPalCharge = function(){
             Paypal.charge({
                 amount: {
-                    currency: 'USD',
-                    total: '9.00'
+                    currency: 'EUR',
+                    total: '10.00'
                 },
-                description: 'This is the payment description.'
+                description: 'Descripción del pago.'
+            }).
+            $promise.then(function(result){
+                window.location.href = result.redirect;
             });
         };
     });
