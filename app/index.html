@@ -27,6 +27,9 @@
 
     <!-- Add your site or application content here -->
     <div class="container" ng-view=""></div>
+    <style type="text/css">
+      #map-canvas-basic { height: 500px }
+    </style>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -39,7 +42,7 @@
        ga('send', 'pageview');
     </script>
 
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=false&language=en"></script>
     <script src="//code.angularjs.org/1.2.0-rc.3/angular.js"></script>
     <script src="//code.angularjs.org/1.2.0-rc.3/angular-route.js"></script>
     <script src="//code.angularjs.org/1.2.0-rc.3/angular-cookies.js"></script>

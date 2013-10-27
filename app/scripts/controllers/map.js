@@ -65,7 +65,7 @@ angular.module('MyTribeApp')
                     var p = pois[0];
                     _.each(pois,function(p){
                         if(_.filter($scope.pois, function(obj){return obj.coords.latitude == p.coords.latitude}).length == 0 ){
-                            Pois.add({ coords: p.coords, showWindow: false }, function(){
+                            Pois.add({ coords: p.coords, showWindow: false, numberOfUsers:p.numberOfUsers }, function(){
                               console.log('point added');
                             });
                     
@@ -79,7 +79,9 @@ angular.module('MyTribeApp')
                                     timestamp:now, user_id:555};
                     Beats.add(beat, function(){
                         console.log('beat adder');
+                        $scope.showMap();
                         //$scope.map.infoWindow.show = true;
+                        /*
                         _.each($scope.beats, function(beat){
                             if(beat && beat.coords){
                                 dynamicMarkers.push({ latitude: beat.coords.latitude, longitude: beat.coords.longitude, showWindow: false });
@@ -94,6 +96,7 @@ angular.module('MyTribeApp')
                                 onMarkerClicked(marker);
                             };
                         });
+                        */
                         //debugger;
                         $scope.map.dynamicMarkers = dynamicMarkers;
                         $scope.$apply();
@@ -194,7 +197,53 @@ angular.module('MyTribeApp')
                 poisShow();
             }, 4000);
     };
+
+    var markerArray = [];
+    var map;
+    var heatmap;
+
+    $scope.showMap = function(){
+        console.log('show map');
+        var mapOptions = {
+          center: new google.maps.LatLng(34.397, 0.644),
+          zoom: 2,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = map || new google.maps.Map(document.getElementById("map-canvas-basic"), mapOptions);
+        _.each(markerArray, function(m){
+            m.setMap(null);
+        });
+        if(heatmap){
+            heatmap.setMap(null);
+        }
+        markerArray.length = 0;
+        var taxiData = [];
+        _.each($scope.beats, function(beat){
+            taxiData.push(new google.maps.LatLng(String(beat.coords.latitude),String(beat.coords.longitude)));
+        
+        });
+        var pointArray = new google.maps.MVCArray(taxiData);
+
+        heatmap = new google.maps.visualization.HeatmapLayer({
+            data: pointArray
+        });
+        heatmap.setMap(map);
+        
+        _.each($scope.pois, function(poi){
+            console.log(poi);
+            var ll = new google.maps.LatLng(String(poi.coords.latitude),String(poi.coords.longitude));
+            var marker = new google.maps.Marker({
+                position: ll,
+                map: map,
+                title: String(poi.numberOfUsers)
+            });
+            markerArray.push(marker);
+        });
     
-    poisShow();
+    };
+    //google.maps.event.addDomListener(window, 'load', $scope.showMap);
+
+    //heatShow();    
+    //poisShow();
 
 });
