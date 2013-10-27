@@ -1,7 +1,18 @@
 'use strict';
 
 angular.module('MyTribeApp') 
-.controller('MapController', function  ($scope, $timeout, $log, angularFire, Beats, Pois, $location) {
+.controller('MapController', function  ($scope, $timeout, $log, angularFire, Beats, Pois, $location, $routeParams) {
+    
+    console.log('route params');
+    console.log($routeParams);
+    if($routeParams && $routeParams.success){
+        if($routeParams.success == 'true'){
+            window.alert("Payment Succesful!");
+        }else if($routeParams.success == 'false'){
+            window.alert("Payment canceled");
+        }
+    }
+
     _ = window._;
     $scope.beats = Beats;
     $scope.pois = Pois;
