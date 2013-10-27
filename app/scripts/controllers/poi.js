@@ -2,15 +2,20 @@
 
 angular.module('MyTribeApp')
     .controller('PoiCtrl', function ($scope, $routeParams, Paypal) {
-        $scope.poiId = $routeParams.poiId;
+        $scope.poi = {
+            id: $routeParams.poiId,
+            name: "L'Hastilla skatepark",
+            description: "Indoor skatepark",
+            amount: "19.00"
+        }
 
         $scope.payPalCharge = function(){
             Paypal.charge({
                 amount: {
-                    currency: 'EUR',
-                    total: '10.00'
+                    currency: 'USD',
+                    total: '19.00'
                 },
-                description: 'Descripción del pago.'
+                description: "Ticket for l'Hastilla skatepark."
             }).
             $promise.then(function(result){
                 window.location.href = result.redirect;

@@ -20,9 +20,6 @@ var myTribeApp = angular.module('MyTribeApp', [
   factory('Users', function(angularFireCollection) {
     return angularFireCollection(new Firebase('https://mitribu-users.firebaseio.com/'));
   }).
-  factory('Venues', function(angularFireCollection) {
-    return angularFireCollection(new Firebase('https://mitribu-venues.firebaseio.com/'));
-  }).
   factory('Paypal', ['$resource', function($resource){
       var resource = $resource('http://localhost:3000/',
         { /* Query params */ }, {
