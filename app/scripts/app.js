@@ -34,6 +34,10 @@ var myTribeApp = angular.module('MyTribeApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/admin', {
+        templateUrl: 'views/admin.html',
+        controller: 'MainCtrl'
+      })
       .when('/user/:userId', {
         templateUrl: 'views/user.html',
         controller: 'UserCtrl'

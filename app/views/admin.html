@@ -1,0 +1,55 @@
+<div ng-controller="MapController">
+    <div id="map-canvas-basic"> </div>
+    <button ng-click="showMap()"> show map</button>
+</div>
+
+<div class="hero-unit">
+    <div id="messagesDiv">
+        <div ng-repeat="poi in pois"></div>
+    </div>
+</div>
+<div ng-controller="MapController">
+    <div class="google-map affix span7"
+         center="map.center"
+         zoom="map.zoom"
+         draggable="true"
+         dragging="map.dragging"
+         bounds="map.bounds"
+         events="map.events"
+         options="map.options">
+
+
+
+       <markers models="map.dynamicMarkers" coords="'self'" icon="'icon'" click="'onClicked'" >
+       <windows show="'showWindow'" closeClick="'closeClick'">
+            <p>Dynamic Marker created via a delay!</p>
+
+            <p ng-non-bindable>This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!</p>
+
+            <p class="muted">My marker will stay open when the window is popped up!</p>
+        </windows>
+        </markers>
+    </div>
+</div>
+<div ng-controller="MapController">
+    <div class="google-map affix span7"
+         center="map.center"
+         zoom="map.zoom"
+         draggable="true"
+         dragging="map.dragging"
+         bounds="map.bounds"
+         events="map.eventsCreateVenue"
+         options="map.options">
+           
+        <markers models="map.dynamicPois" coords="'self'" icon="'icon'" click="'onClicked'" >
+           <windows show="'showWindow'" closeClick="'closeClick'">
+                <p>Dynamic Marker created via a delay!</p>
+
+                <p ng-non-bindable>This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!</p>
+
+                <p class="muted">My marker will stay open when the window is popped up!</p>
+            </windows>
+        </markers>
+
+    </div>
+</div>

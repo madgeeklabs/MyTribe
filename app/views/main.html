@@ -1,55 +1,59 @@
-<div ng-controller="MapController">
-    <div id="map-canvas-basic"> </div>
-    <button ng-click="showMap()"> show map</button>
-</div>
+<div class="main">
+    <!-- <div class="hidden">
+    <div class="header">
+        <a href="poi.html">POI</a>
+        <img class="info" src="">
+        <img class="logo" src="">
+        <img class="search" src="">
+    </div> -->
+            <a href="/#/poi/asd"><img class="fullscreen" src="../img/main.jpg" alt=""></a>
+   <!--  <div class="content">
+        <div class="maps">
+            <div ng-controller="MapController" class="hidden-map">
+                <div class="google-map affix span7"
+                center="map.center"
+                zoom="map.zoom"
+                draggable="true"
+                dragging="map.dragging"
+                bounds="map.bounds"
+                events="map.events"
+                options="map.options">
 
-<div class="hero-unit">
-    <div id="messagesDiv">
-        <div ng-repeat="poi in pois"></div>
+
+
+                <markers models="map.dynamicMarkers" coords="'self'" icon="'icon'" click="'onClicked'" >
+                   <windows show="'showWindow'" closeClick="'closeClick'">
+                    <p>Dynamic Marker created via a delay!</p>
+
+                    <p ng-non-bindable>This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!</p>
+
+                    <p class="muted">My marker will stay open when the window is popped up!</p>
+                </windows>
+            </markers>
+        </div>
     </div>
-</div>
-<div ng-controller="MapController">
-    <div class="google-map affix span7"
-         center="map.center"
-         zoom="map.zoom"
-         draggable="true"
-         dragging="map.dragging"
-         bounds="map.bounds"
-         events="map.events"
-         options="map.options">
+    <div ng-controller="MapController" class="hidden-map">
+        <div class="google-map affix span7"
+        center="map.center"
+        zoom="map.zoom"
+        draggable="true"
+        dragging="map.dragging"
+        bounds="map.bounds"
+        events="map.eventsCreateVenue"
+        options="map.options">
 
-
-
-       <markers models="map.dynamicMarkers" coords="'self'" icon="'icon'" click="'onClicked'" >
-       <windows show="'showWindow'" closeClick="'closeClick'">
+        <markers models="map.dynamicPois" coords="'self'" icon="'icon'" click="'onClicked'" >
+           <windows show="'showWindow'" closeClick="'closeClick'">
             <p>Dynamic Marker created via a delay!</p>
 
             <p ng-non-bindable>This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!</p>
 
             <p class="muted">My marker will stay open when the window is popped up!</p>
         </windows>
-        </markers>
-    </div>
+    </markers>
 </div>
-<div ng-controller="MapController">
-    <div class="google-map affix span7"
-         center="map.center"
-         zoom="map.zoom"
-         draggable="true"
-         dragging="map.dragging"
-         bounds="map.bounds"
-         events="map.eventsCreateVenue"
-         options="map.options">
-           
-        <markers models="map.dynamicPois" coords="'self'" icon="'icon'" click="'onClicked'" >
-           <windows show="'showWindow'" closeClick="'closeClick'">
-                <p>Dynamic Marker created via a delay!</p>
-
-                <p ng-non-bindable>This is an info window at {{ latitude | number:4 }}, {{ longitude | number:4 }}!</p>
-
-                <p class="muted">My marker will stay open when the window is popped up!</p>
-            </windows>
-        </markers>
-
-    </div>
+</div>
+</div>
+</div>
+</div> -->
 </div>
