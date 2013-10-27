@@ -62,11 +62,13 @@ function performClustering(inArray){
 				if (d < 100)
 				{
 					found = true;	
+					result[k].numberOfUsers++;
 				}
 			}	
 			if (!found )
 			{
-				result[counter++] = inArray[i]; 
+				result[counter] = inArray[i]; 
+				result[counter++].numberOfUsers=1;
 			}	
 		}
 	}
