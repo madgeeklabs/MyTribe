@@ -217,13 +217,10 @@ angular.module('MyTribeApp')
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = map || new google.maps.Map(document.getElementById("map-canvas-basic"), mapOptions);
-        _.each(markerArray, function(m){
-            m.setMap(null);
-        });
         if(heatmap){
             heatmap.setMap(null);
         }
-        markerArray.length = 0;
+        //markerArray.length = 0;
         var taxiData = [];
         _.each($scope.beats, function(beat){
             taxiData.push(new google.maps.LatLng(String(beat.coords.latitude),String(beat.coords.longitude)));
@@ -240,6 +237,7 @@ angular.module('MyTribeApp')
             //console.log(poi);
             var ll = new google.maps.LatLng(String(poi.coords.latitude),String(poi.coords.longitude));
             var marker;
+            if(_.filter(markerArray, function(obj){if(!obj) return false;return obj.position.lb == poi.coords.latitude}).length == 0 ){
             if(poi.amount){
                 marker = new google.maps.Marker({
                     position: ll,
@@ -257,6 +255,8 @@ angular.module('MyTribeApp')
                 });
             }
             markerArray.push(marker);
+        
+        }
         });
          $timeout(function(){
             $scope.showMap();
