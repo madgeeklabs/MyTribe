@@ -38,6 +38,19 @@ angular.module('MyTribeApp')
             dynamicMarkers: [],
             dynamicPois: [],
             doUgly: true, //great name :)
+            eventsCreateVenue: {
+                click: function(mapModel, eventName, originalEventArgs){
+                    console.log('create venue');
+                    var e = originalEventArgs[0];
+                    var poiSponsor = {coords:
+                                    {latitude:e.latLng.lat(), longitude:e.latLng.lng()},
+                                    amount:Math.floor(Math.random()*10000 )/100, name:'L\'hastilla Skatepark', description:'Skate park', showWindow: false };
+                    Pois.add(poiSponsor, function(){
+                      console.log('point added');
+                    });
+                
+                }
+            },
             events: {
                 click: function (mapModel, eventName, originalEventArgs) {
                     // 'this' is the directive's scope
