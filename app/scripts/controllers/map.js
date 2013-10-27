@@ -245,7 +245,7 @@ angular.module('MyTribeApp')
             data: pointArray
         });
         heatmap.setMap(map);
-        heatmap.setOptions({radius: heatmap.get('radius') ? null : 50}) ; 
+        heatmap.setOptions({radius: 50, opacity: 1.0}) ; 
     };
 
     $scope.showMap = function(){
