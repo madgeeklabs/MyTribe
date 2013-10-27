@@ -22,8 +22,8 @@ var create_payment_json = {
         "payment_method": "paypal"
     },
     "redirect_urls": {
-        "return_url": "http:\/\/127.0.0.1:9000\/#\/",
-        "cancel_url": "http:\/\/127.0.0.1:9000\/#\/"
+        "return_url": "http:\/\/54.247.168.152:80\/#\/?success=true",
+        "cancel_url": "http:\/\/54.247.168.152:80\/#\/?success=true"
     },
     "transactions": [{
         "amount": {
