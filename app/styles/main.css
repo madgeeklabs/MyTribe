@@ -6,24 +6,40 @@ body {
 .hidden {
   display: none; }
 
-.fullscreen {
+/*.fullscreen {
   width: 480px;
-  height: 720px; }
+  height: 720px; }*/
 
-.hero-unit {
-  margin: 50px auto 0 auto;
-  width: 300px;
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 30px;
-  background-color: #eee;
-  border-radius: 6px;
-  padding: 60px; }
+.main {
+    width: 100%; }
 
-.hero-unit h1 {
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px; }
+.topbar {
+    padding: 10px;
+    background: #1e1d1d ;
+    min-height: 40px; }
+
+.topbar {
+    text-align: center; }
+
+.topbar-img {
+    max-height: 21px !important;
+    padding: 7px 0 0; }
+
+.topbar > ul > li:first-child {
+    float: left; }
+
+.topbar > ul > li:last-child {
+    float: right; }
+
+ul.unstyled {
+    margin: 0;
+    padding: 0; }
+
+ul.list-inline > li {
+    display: inline; }
+
+ul.unstyled > li {
+    list-style: none;}
 
 .angular-google-map-container {
   width: 100%;
