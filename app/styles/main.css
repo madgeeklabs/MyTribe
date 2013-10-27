@@ -62,13 +62,14 @@ ul.unstyled > li {
 .footer li a span {
     float: right;}
 
+
 #map-canvas-basic {
     height: 550px; }
-
+/*
 .angular-google-map-container {
   width: 100%; }
 
-/* fix for Twitter Bootstrap handling of responsive images */
+
 .angular-google-map img {
   max-width: inherit; }
 
@@ -94,3 +95,43 @@ ul.unstyled > li {
   width: 40px;
   border: 2px solid black;
   white-space: nowrap; }
+*/
+
+.angular-google-map-container {
+    width: 80%;
+    height: 600px;
+}
+
+/* fix for Twitter Bootstrap handling of responsive images */
+.angular-google-map img {
+    max-width: inherit;
+}
+
+.angular-google-map {
+    top: 80px;
+
+}
+
+.shrink {
+    font-size: 8;
+}
+
+.true:hover {
+    background-color: lightgreen;
+}
+
+.false:hover {
+    background-color: lightpink;
+}
+
+.marker-labels {
+    color: red;
+    background-color: white;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    width: 40px;
+    border: 2px solid black;
+    white-space: nowrap;
+}
