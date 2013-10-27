@@ -61,7 +61,7 @@ angular.module('MyTribeApp')
 			// MAPA 1 (clicks)
 		    var pois = performClustering($scope.beats);
                     console.log('pot entontrado');
-                    console.log(pois);
+                    //console.log(pois);
                     var p = pois[0];
                     _.each(pois,function(p){
                         if(_.filter($scope.pois, function(obj){return obj.coords.latitude == p.coords.latitude}).length == 0 ){
@@ -176,7 +176,7 @@ angular.module('MyTribeApp')
               //$scope.map.infoWindow.show = true;
             _.each($scope.pois, function(poi){
                     console.log('poi');
-                    console.log(poi);
+                    //console.log(poi);
                   if(poi && poi.coords){
                     dynamicPois.push({ latitude: poi.coords.latitude, longitude: poi.coords.longitude, showWindow: false });
                     }
@@ -192,7 +192,7 @@ angular.module('MyTribeApp')
               });
               //debugger;
               $scope.map.dynamicPois = dynamicPois;
-                console.log(dynamicPois.length);
+                //console.log(dynamicPois.length);
               $scope.$apply();
                 poisShow();
             }, 4000);
@@ -201,6 +201,13 @@ angular.module('MyTribeApp')
     var markerArray = [];
     var map;
     var heatmap;
+
+    $scope.$watch('pois', function(newVal, oldVal){
+        console.log('!!!!!!!!!!!!!!!!!!!!!pois changed watch');
+        console.log(oldVal);
+        console.log(newVal);
+    
+    });
 
     $scope.showMap = function(){
         console.log('show map');
@@ -230,7 +237,7 @@ angular.module('MyTribeApp')
         heatmap.setMap(map);
         
         _.each($scope.pois, function(poi){
-            console.log(poi);
+            //console.log(poi);
             var ll = new google.maps.LatLng(String(poi.coords.latitude),String(poi.coords.longitude));
             var marker;
             if(poi.amount){
@@ -251,8 +258,13 @@ angular.module('MyTribeApp')
             }
             markerArray.push(marker);
         });
-    
+         $timeout(function(){
+            $scope.showMap();
+        }, 5000);
     };
+   
+    $scope.showMap(); 
+   //showMap,1000);
     //google.maps.event.addDomListener(window, 'load', $scope.showMap);
 
     //heatShow();    
