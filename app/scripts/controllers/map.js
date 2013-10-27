@@ -1,7 +1,18 @@
 'use strict';
 
 angular.module('MyTribeApp') 
-.controller('MapController', function  ($scope, $timeout, $log, angularFire, Beats, Pois) {
+.controller('MapController', function  ($scope, $timeout, $log, angularFire, Beats, Pois, $location, $routeParams) {
+    
+    console.log('route params');
+    console.log($routeParams);
+    if($routeParams && $routeParams.success){
+        if($routeParams.success == 'true'){
+            window.alert("Payment Succesful!");
+        }else if($routeParams.success == 'false'){
+            window.alert("Payment canceled");
+        }
+    }
+
     _ = window._;
     $scope.beats = Beats;
     $scope.pois = Pois;
@@ -10,12 +21,15 @@ angular.module('MyTribeApp')
     // Enable the new Google Maps visuals until it gets enabled by default.
     // See http://googlegeodevelopers.blogspot.ca/2013/05/a-fresh-new-look-for-maps-api-for-all.html
     google.maps.visualRefresh = true;
-
+    /*
     var onMarkerClicked = function(marker){
-        marker.showWindow = true;
-        window.alert("Marker: lat: " + marker.latitude +", lon: " + marker.longitude + " clicked!!");
+        console.log('marker clicked');
+        console.log(marker);
+        //marker.showWindow = true;
+        $location.url(marker.url);
+        //window.alert("Marker: lat: " + marker.latitude +", lon: " + marker.longitude + " clicked!!");
     };
-    
+    */
 
     
 
@@ -167,7 +181,7 @@ angular.module('MyTribeApp')
     });
 
 
-    $scope.onMarkerClicked = onMarkerClicked;
+    //$scope.onMarkerClicked = onMarkerClicked;
 
     var poisShow = function(){
         $timeout(function(){
@@ -178,7 +192,7 @@ angular.module('MyTribeApp')
                     console.log('poi');
                     //console.log(poi);
                   if(poi && poi.coords){
-                    dynamicPois.push({ latitude: poi.coords.latitude, longitude: poi.coords.longitude, showWindow: false });
+                    dynamicPois.push({ latitude: poi.coords.latitude, longitude: poi.coords.longitude, showWindow: false, url: '/poi/lalal'});
                     }
               })   ;
              _.each(dynamicPois,function(marker){
@@ -187,7 +201,7 @@ angular.module('MyTribeApp')
                       $scope.$apply();
                   };
                   marker.onClicked = function(){
-                      onMarkerClicked(marker);
+                      //onMarkerClicked(marker);
                   };
               });
               //debugger;
@@ -262,6 +276,7 @@ angular.module('MyTribeApp')
                     position: ll,
                     map: map,
                     title: String(poi.numberOfUsers),
+                    url: '/poi/lalal',
                     icon: "views/imgs/marker-premium.png"
                 });
             
@@ -270,6 +285,7 @@ angular.module('MyTribeApp')
                     position: ll,
                     map: map,
                     title: String(poi.numberOfUsers),
+                    url: '/poi/lalal',
                     icon: "views/imgs/marker.png"
                 });
             }
@@ -277,6 +293,15 @@ angular.module('MyTribeApp')
         
         }
         });
+        var i;
+        for ( i = 0; i < markerArray.length; i++ ) {
+            google.maps.event.addListener(markerArray[i], 'click', function() {
+                $location.url(this.url);
+                $scope.$apply();
+              //window.location.href = this[i].url;  //changed from markers[i] to this[i]
+            });
+        }
+
          $timeout(function(){
             $scope.showMap();
         }, 5000);

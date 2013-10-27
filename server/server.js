@@ -23,7 +23,7 @@ var create_payment_json = {
     },
     "redirect_urls": {
         "return_url": "http:\/\/54.247.168.152:80\/#\/?success=true",
-        "cancel_url": "http:\/\/54.247.168.152:80\/#\/?success=true"
+        "cancel_url": "http:\/\/54.247.168.152:80\/#\/?success=false"
     },
     "transactions": [{
         "amount": {
