@@ -21,7 +21,7 @@ var myTribeApp = angular.module('MyTribeApp', [
     return angularFireCollection(new Firebase('https://mitribu-users.firebaseio.com/'));
   }).
   factory('Paypal', ['$resource', function($resource){
-      var resource = $resource('http://localhost:3000/',
+      var resource = $resource('http://54.247.168.152:3000/',
         { /* Query params */ }, {
           charge: {method:'POST', params:{charge:true}
         }
