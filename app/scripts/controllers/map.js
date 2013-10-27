@@ -39,14 +39,14 @@ angular.module('MyTribeApp')
             showBicycling: false,
             showWeather: false,
             center: {
-                latitude: 45,
-                longitude: -73
+                latitude: 41.388916,
+                longitude: 2.159817
             },
             options: {
               streetViewControl: false,
               panControl: false
             },
-            zoom: 3,
+            zoom: 13,
             dragging: false,
             bounds: {},
             dynamicMarkers: [],
@@ -245,15 +245,15 @@ angular.module('MyTribeApp')
             data: pointArray
         });
         heatmap.setMap(map);
-    
+        heatmap.setOptions({radius: heatmap.get('radius') ? null : 50}) ; 
     };
 
     $scope.showMap = function(){
         console.log('show map');
         console.log($scope.isHeatmapActive);
         var mapOptions = {
-          center: new google.maps.LatLng(34.397, 0.644),
-          zoom: 2,
+          center: new google.maps.LatLng(41.388916,2.159817),
+          zoom: 13,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = map || new google.maps.Map(document.getElementById("map-canvas-basic"), mapOptions);
