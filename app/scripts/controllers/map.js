@@ -232,11 +232,23 @@ angular.module('MyTribeApp')
         _.each($scope.pois, function(poi){
             console.log(poi);
             var ll = new google.maps.LatLng(String(poi.coords.latitude),String(poi.coords.longitude));
-            var marker = new google.maps.Marker({
-                position: ll,
-                map: map,
-                title: String(poi.numberOfUsers)
-            });
+            var marker;
+            if(poi.amount){
+                marker = new google.maps.Marker({
+                    position: ll,
+                    map: map,
+                    title: String(poi.numberOfUsers),
+                    icon: "views/imgs/marker-premium.png"
+                });
+            
+            }else{
+                marker = new google.maps.Marker({
+                    position: ll,
+                    map: map,
+                    title: String(poi.numberOfUsers),
+                    icon: "views/imgs/marker.png"
+                });
+            }
             markerArray.push(marker);
         });
     
